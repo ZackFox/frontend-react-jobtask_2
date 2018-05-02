@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 
 import Home from "./components/Home";
-import News from "./components/News";
+import ProfileComponent from "./components/ProfileComponent";
+import NewsComponent from "./components/NewsComponent";
 import Login from "./components/Login";
-import Profile from "./components/Profile";
 import NotFound from "./components/NotFound";
 
 class App extends Component {
@@ -24,9 +24,9 @@ class App extends Component {
           <h1 className="App-title">Welcome</h1>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/news" component={News} />
+            <Route path="/news" component={NewsComponent} />
             <Route path="/login" component={Login} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/profile/:id" component={ProfileComponent} />
             <Route component={NotFound} />
           </Switch>
         </main>
