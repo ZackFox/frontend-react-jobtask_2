@@ -11,7 +11,15 @@ export const getProfile = id => dispatch => {
   axios
     .get(`https://mysterious-reef-29460.herokuapp.com/api/v1/user-info/${id}`)
     .then(({ data }) => {
-      dispatch({ type: FETCHING_PROFILE_SUCCESS, profile: data.data });
+      const link = data.data.social[2];
+      const filtered = data.data.social.filter(item => item.label !== "web");
+
+      const profile = {
+        ...data.data,
+        social: [link, ...filtered],
+      };
+
+      dispatch({ type: FETCHING_PROFILE_SUCCESS, profile });
       dispatch({ type: STOP_FETCHING_PROFILE });
     })
     .catch(err => {

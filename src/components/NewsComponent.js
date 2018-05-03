@@ -24,6 +24,7 @@ class NewsComponent extends Component {
 NewsComponent.proptypes = {
   news: PropTypes.arrayOf().isRequired,
   isFetching: PropTypes.bool.isRequired,
+  getAllNews: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

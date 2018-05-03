@@ -6,7 +6,7 @@ import NotFound from "./NotFound";
 
 class ProfileComponent extends Component {
   componentDidMount() {
-    const id = this.props.match.params.id;
+    const id = this.props.user.id;
     this.props.getProfile(id);
   }
 
@@ -25,8 +25,11 @@ class ProfileComponent extends Component {
           <strong>Город: </strong>
           {profile.city}
         </p>
+
         <strong> Знание языков: </strong>
         <ul>{profile.languages.map(item => <li key={item}>{item}</li>)}</ul>
+
+        <strong>Ссылки: </strong>
         <ul>
           {profile.social.map(item => (
             <li key={item.label}>
@@ -42,6 +45,7 @@ class ProfileComponent extends Component {
 ProfileComponent.proptypes = {
   profile: PropTypes.shape().isRequired,
   isFetching: PropTypes.bool.isRequired,
+  getProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import LoginComponent from "../components/LoginComponent";
+import ProfileComponent from "../components/ProfileComponent";
 
-const LoginContainer = ({ isLoggedIn, user }) => {
+const ProfileContainer = ({ isLoggedIn, user }) => {
   if (isLoggedIn && user) {
-    return <LoginComponent />;
+    return <ProfileComponent user={user} />;
   }
   return <Redirect to="/login" />;
 };
 
-LoginContainer.proptypes = {
+ProfileContainer.proptypes = {
   user: PropTypes.shape().isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };
@@ -22,4 +22,4 @@ const mapStateToProps = state => ({
   isLoggedIn: state.authReducer.isLoggedIn,
 });
 
-export default connect(mapStateToProps, null)(LoginContainer);
+export default connect(mapStateToProps, null)(ProfileContainer);

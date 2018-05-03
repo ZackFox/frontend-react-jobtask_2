@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 
 import Home from "./components/Home";
-import ProfileComponent from "./components/ProfileComponent";
+import LoginComponent from "./components/LoginComponent";
+import ProfileContainer from "./containers/ProfileContainer";
 import NewsComponent from "./components/NewsComponent";
-import Login from "./components/Login";
 import NotFound from "./components/NotFound";
+import SignButton from "./components/SignButton";
 
 class App extends Component {
   render() {
@@ -16,7 +17,7 @@ class App extends Component {
             <Link to="/">Главная</Link>
             <Link to="/profile">Профиль</Link>
             <Link to="/news">Новости</Link>
-            <Link to="/login">Логин</Link>
+            <SignButton />
           </div>
         </header>
 
@@ -25,8 +26,8 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/news" component={NewsComponent} />
-            <Route path="/login" component={Login} />
-            <Route path="/profile/:id" component={ProfileComponent} />
+            <Route path="/login" component={LoginComponent} />
+            <Route path="/profile" component={ProfileContainer} />
             <Route component={NotFound} />
           </Switch>
         </main>
