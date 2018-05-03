@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getProfile } from "../actions/profileActions";
 import NotFound from "./NotFound";
 
-class ProfileComponent extends Component {
+class Profile extends Component {
   componentDidMount() {
     const id = this.props.user.id;
     this.props.getProfile(id);
@@ -15,19 +15,20 @@ class ProfileComponent extends Component {
     if (isFetching) {
       return <div>Загрузка...</div>;
     }
+
     if (!profile) {
       return <NotFound />;
     }
 
     return (
-      <div>
+      <div className="container">
         <p>
           <strong>Город: </strong>
           {profile.city}
         </p>
 
         <strong> Знание языков: </strong>
-        <ul>{profile.languages.map(item => <li key={item}>{item}</li>)}</ul>
+        <ul>{profile.languages.map(item => <li key={item}> {item} </li>)}</ul>
 
         <strong>Ссылки: </strong>
         <ul>
@@ -42,7 +43,7 @@ class ProfileComponent extends Component {
   }
 }
 
-ProfileComponent.proptypes = {
+Profile.proptypes = {
   profile: PropTypes.shape().isRequired,
   isFetching: PropTypes.bool.isRequired,
   getProfile: PropTypes.func.isRequired,
@@ -53,4 +54,4 @@ const mapStateToProps = state => ({
   isFetching: state.profileReducer.isFetching,
 });
 
-export default connect(mapStateToProps, { getProfile })(ProfileComponent);
+export default connect(mapStateToProps, { getProfile })(Profile);

@@ -5,7 +5,7 @@ import { getAllNews } from "../actions/newsActions";
 
 import NewsItem from "./NewsItem";
 
-class NewsComponent extends Component {
+class NewsList extends Component {
   componentDidMount() {
     this.props.getAllNews();
   }
@@ -21,7 +21,7 @@ class NewsComponent extends Component {
   }
 }
 
-NewsComponent.proptypes = {
+NewsList.proptypes = {
   news: PropTypes.arrayOf().isRequired,
   isFetching: PropTypes.bool.isRequired,
   getAllNews: PropTypes.func.isRequired,
@@ -32,4 +32,4 @@ const mapStateToProps = state => ({
   isFetching: state.newsReducer.isFetching,
 });
 
-export default connect(mapStateToProps, { getAllNews })(NewsComponent);
+export default connect(mapStateToProps, { getAllNews })(NewsList);

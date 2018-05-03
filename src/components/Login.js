@@ -1,17 +1,28 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signIn } from "../actions/authActions";
 
-class LoginComponent extends Component {
+class Login extends Component {
+  state = {
+    redirectTo: false,
+  };
+
   submitHandler = event => {
     event.preventDefault();
     const email = this.emailInput.value;
     const password = this.passwordInput.value;
-    this.props.signIn({ email, password });
+    this.props.signIn({ email, password }, () => {
+      this.setState({ redirectTo: true });
+    });
   };
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to="/Profile" />;
+    }
+
     return (
       <div>
         <form onSubmit={this.submitHandler}>
@@ -32,10 +43,10 @@ class LoginComponent extends Component {
   }
 }
 
-LoginComponent.proptypes = {
+Login.proptypes = {
   signIn: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, { signIn })(LoginComponent);
+export default connect(mapStateToProps, { signIn })(Login);

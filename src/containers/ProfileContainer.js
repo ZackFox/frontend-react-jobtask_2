@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import ProfileComponent from "../components/ProfileComponent";
+import Profile from "../components/Profile";
 
 const ProfileContainer = ({ isLoggedIn, user }) => {
   if (isLoggedIn && user) {
-    return <ProfileComponent user={user} />;
+    return <Profile user={user} />;
   }
   return <Redirect to="/login" />;
 };

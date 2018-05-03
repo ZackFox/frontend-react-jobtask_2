@@ -7,12 +7,11 @@ import {
   LOGOUT,
 } from "../constants/authTypes";
 
-export const signIn = credentials => dispatch => {
+export const signIn = (credentials, cb) => dispatch => {
   dispatch({ type: START_LOGIN_REQUEST });
   axios
     .post(
       "https://mysterious-reef-29460.herokuapp.com/api/v1/validate",
-      // { email: "max@test.com", password: "12345" },
       credentials,
     )
     .then(({ data }) => {
@@ -20,6 +19,7 @@ export const signIn = credentials => dispatch => {
         case "ok":
           dispatch({ type: LOGIN_SUCCESS, user: data.data });
           dispatch({ type: STOP_LOGIN_REQUEST });
+          cb();
           return;
         case "err":
           dispatch({ type: LOGIN_FAILURE, message: data.message });
