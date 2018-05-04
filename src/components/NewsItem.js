@@ -3,17 +3,22 @@ import PropTypes from "prop-types";
 
 const NewsItem = ({ data }) => {
   return (
-    <div className="container">
+    <div className="news-item">
       <a
         href={`https://mysterious-reef-29460.herokuapp.com/api/v1/news/${
           data.id
         }`}
+        className="news-title"
       >
         {data.title}
       </a>
-      <p>{data.text}</p>
+      <p className="news-text">{data.text}</p>
     </div>
   );
+};
+
+NewsItem.proptypes = {
+  data: PropTypes.shape().isRequired,
 };
 
 export default NewsItem;

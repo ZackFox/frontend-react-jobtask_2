@@ -13,10 +13,13 @@ class NewsList extends Component {
   render() {
     const { news, isFetching } = this.props;
     if (isFetching) {
-      return <div>Загрузка...</div>;
+      return <div>Загрузка мутится..</div>;
     }
     return (
-      <div>{news.map(item => <NewsItem key={item.id} data={item} />)}</div>
+      <div>
+        {news.map(item => <NewsItem key={item.id} data={item} />)}
+        <p>Всего новостей: {news.length}</p>
+      </div>
     );
   }
 }

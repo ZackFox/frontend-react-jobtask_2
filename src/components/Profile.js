@@ -13,7 +13,7 @@ class Profile extends Component {
   render() {
     const { profile, isFetching } = this.props;
     if (isFetching) {
-      return <div>Загрузка...</div>;
+      return <div>Загрузка мутится...</div>;
     }
 
     if (!profile) {
@@ -21,20 +21,28 @@ class Profile extends Component {
     }
 
     return (
-      <div className="container">
+      <div className="profile">
+        <h3>Профиль</h3>
         <p>
           <strong>Город: </strong>
           {profile.city}
         </p>
-
         <strong> Знание языков: </strong>
-        <ul>{profile.languages.map(item => <li key={item}> {item} </li>)}</ul>
-
+        <ul className="lang">
+          {profile.languages.map(item => <li key={item}> +{item} </li>)}
+        </ul>
+        <br />
         <strong>Ссылки: </strong>
-        <ul>
+        <ul className="social">
           {profile.social.map(item => (
             <li key={item.label}>
-              <a href={item.link}>{item.label}</a>
+              <a href={item.link}>
+                <i
+                  className={`fa fa-${
+                    item.label === "web" ? "globe" : item.label
+                  }`}
+                />
+              </a>
             </li>
           ))}
         </ul>

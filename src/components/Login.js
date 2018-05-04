@@ -16,27 +16,33 @@ class Login extends Component {
     this.props.signIn({ email, password }, () => {
       this.setState({ redirectTo: true });
     });
+    this.passwordInput.value = "";
   };
 
   render() {
+    const { isFetching, message } = this.props;
+
     if (this.state.redirectTo) {
-      return <Redirect to="/Profile" />;
+      return <Redirect to="/profile" />;
     }
 
     return (
-      <div>
+      <div className="login">
+        <h3>Авторизация</h3>
+        <span>{isFetching && "...обработка"}</span>
         <form onSubmit={this.submitHandler}>
+          <p className="message">{message}</p>
           <input
             type="text"
             ref={el => (this.emailInput = el)}
-            placeholder="Email"
+            placeholder="Email*"
           />
           <input
             type="password"
             ref={el => (this.passwordInput = el)}
-            placeholder="Пароль"
+            placeholder="Пароль*"
           />
-          <input type="submit" />
+          <input type="submit" value="Отправить" />
         </form>
       </div>
     );
@@ -47,6 +53,9 @@ Login.proptypes = {
   signIn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  message: state.authReducer.message,
+  isFetching: state.authReducer.isFetching,
+});
 
 export default connect(mapStateToProps, { signIn })(Login);

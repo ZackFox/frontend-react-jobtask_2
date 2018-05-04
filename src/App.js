@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
-
+import { Switch, Route, NavLink } from "react-router-dom";
 import Home from "./components/Home";
 
 import ProfileContainer from "./containers/ProfileContainer";
@@ -14,32 +13,40 @@ class App extends Component {
     return (
       <div className="App">
         <header className="header">
-          <div className="top-menu">
-            <nav>
+          <div className="container">
+            <nav className="nav">
               <ul>
                 <li>
-                  <Link to="/">Главная</Link>
+                  <NavLink to="/" exact activeClassName="selected">
+                    Главная
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/profile">Профиль</Link>
+                  <NavLink to="/profile" activeClassName="selected">
+                    Профиль
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/news">Новости</Link>
+                  <NavLink to="/news" activeClassName="selected">
+                    Новости
+                  </NavLink>
                 </li>
               </ul>
+              <SignButton />
             </nav>
-            <SignButton />
           </div>
         </header>
 
         <main>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/news" component={NewsList} />
-            <Route path="/login" component={Login} />
-            <Route path="/profile" component={ProfileContainer} />
-            <Route component={NotFound} />
-          </Switch>
+          <div className="container">
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/news" component={NewsList} />
+              <Route path="/login" component={Login} />
+              <Route path="/profile" component={ProfileContainer} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
         </main>
       </div>
     );

@@ -12,14 +12,18 @@ class SignButton extends Component {
 
   render() {
     const { isLoggedIn, user } = this.props;
-    if (isLoggedIn && user) {
-      return (
-        <a href="/" onClick={this.clickHandler}>
+
+    const button =
+      isLoggedIn && user ? (
+        <a href="/" className="button b-signout" onClick={this.clickHandler}>
           Выход
         </a>
+      ) : (
+        <Link className="button b-signin" to="/login">
+          Войти
+        </Link>
       );
-    }
-    return <Link to="/login">Войти</Link>;
+    return button;
   }
 }
 

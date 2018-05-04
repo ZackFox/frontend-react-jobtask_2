@@ -15,19 +15,20 @@ export const signIn = (credentials, cb) => dispatch => {
       credentials,
     )
     .then(({ data }) => {
-      switch (data.status) {
-        case "ok":
-          dispatch({ type: LOGIN_SUCCESS, user: data.data });
-          dispatch({ type: STOP_LOGIN_REQUEST });
-          cb();
-          return;
-        case "err":
-          dispatch({ type: LOGIN_FAILURE, message: data.message });
-          dispatch({ type: STOP_LOGIN_REQUEST });
-          return;
-        default:
-          return;
+      if (data.status === "err") {
+        switch (data.message) {
+          case "wrong_email_or_password":
+            const message = "Неверный Email или пароль";
+            dispatch({ type: LOGIN_FAILURE, message });
+            dispatch({ type: STOP_LOGIN_REQUEST });
+            return;
+          default:
+            return;
+        }
       }
+      dispatch({ type: LOGIN_SUCCESS, user: data.data });
+      dispatch({ type: STOP_LOGIN_REQUEST });
+      cb();
     })
     .catch(err => {
       dispatch({ type: STOP_LOGIN_REQUEST });

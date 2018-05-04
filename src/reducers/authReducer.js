@@ -16,7 +16,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case START_LOGIN_REQUEST:
-      return { ...state, isFetching: true };
+      return { ...state, isFetching: true, message: "" };
     case STOP_LOGIN_REQUEST:
       return { ...state, isFetching: false };
     case LOGIN_SUCCESS:
