@@ -17,7 +17,7 @@ const NewsItem = ({ data }) => {
   );
 };
 
-NewsItem.proptypes = {
+NewsItem.propTypes = {
   data: PropTypes.shape().isRequired,
 };
 

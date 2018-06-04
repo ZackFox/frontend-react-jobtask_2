@@ -1,40 +1,29 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getProfile } from "../actions/profileActions";
-import NotFound from "./NotFound";
 
-class Profile extends Component {
-  componentDidMount() {
-    const id = this.props.user.id;
-    this.props.getProfile(id);
-  }
+import withLoading from "../hoc/withLoading";
 
-  render() {
-    const { profile, isFetching } = this.props;
-    if (isFetching) {
-      return <div>Загрузка мутится...</div>;
-    }
-
-    if (!profile) {
-      return <NotFound />;
-    }
-
-    return (
+const Profile = ({ data }) => {
+  return (
+    data && (
       <div className="profile">
         <h3>Профиль</h3>
+
         <p>
           <strong>Город: </strong>
-          {profile.city}
+          {data.city}
         </p>
+
         <strong> Знание языков: </strong>
         <ul className="lang">
-          {profile.languages.map(item => <li key={item}> +{item} </li>)}
+          {data.languages.map(item => <li key={item}> +{item} </li>)}
         </ul>
+
         <br />
         <strong>Ссылки: </strong>
+
         <ul className="social">
-          {profile.social.map(item => (
+          {data.social.map(item => (
             <li key={item.label}>
               <a href={item.link}>
                 <i
@@ -47,19 +36,13 @@ class Profile extends Component {
           ))}
         </ul>
       </div>
-    );
-  }
-}
-
-Profile.proptypes = {
-  profile: PropTypes.shape().isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  getProfile: PropTypes.func.isRequired,
+    )
+  );
 };
 
-const mapStateToProps = state => ({
-  profile: state.profileReducer.profile,
-  isFetching: state.profileReducer.isFetching,
-});
+Profile.propTypes = {
+  data: PropTypes.shape().isRequired,
+  isFetching: PropTypes.bool.isRequired,
+};
 
-export default connect(mapStateToProps, { getProfile })(Profile);
+export default withLoading(Profile);

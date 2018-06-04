@@ -1,6 +1,5 @@
 import {
-  START_FETCHING_PROFILE,
-  STOP_FETCHING_PROFILE,
+  FETCHING_PROFILE_REQUEST,
   FETCHING_PROFILE_SUCCESS,
   FETCHING_PROFILE_FAILURE,
 } from "../constants/profileTypes";
@@ -13,14 +12,12 @@ const initialState = {
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case START_FETCHING_PROFILE:
+    case FETCHING_PROFILE_REQUEST:
       return { ...state, isFetching: true };
-    case STOP_FETCHING_PROFILE:
-      return { ...state, isFetching: false };
     case FETCHING_PROFILE_SUCCESS:
-      return { ...state, profile: action.profile };
+      return { ...state, profile: action.profile, isFetching: false };
     case FETCHING_PROFILE_FAILURE:
-      return state;
+      return { ...state, isFetching: false };
     default:
       return state;
   }

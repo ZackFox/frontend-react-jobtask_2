@@ -1,6 +1,5 @@
 import {
-  START_LOGIN_REQUEST,
-  STOP_LOGIN_REQUEST,
+  LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT,
@@ -15,16 +14,19 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case START_LOGIN_REQUEST:
+    case LOGIN_REQUEST:
       return { ...state, isFetching: true, message: "" };
-    case STOP_LOGIN_REQUEST:
-      return { ...state, isFetching: false };
     case LOGIN_SUCCESS:
-      return { ...state, user: action.user, isLoggedIn: true };
+      return {
+        ...state,
+        user: action.user,
+        isFetching: false,
+        isLoggedIn: true,
+      };
     case LOGOUT:
       return { ...state, user: null, isLoggedIn: false };
     case LOGIN_FAILURE:
-      return { ...state, message: action.message };
+      return { ...state, isFetching: false, message: action.message };
     default:
       return state;
   }

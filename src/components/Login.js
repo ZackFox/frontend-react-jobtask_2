@@ -13,6 +13,7 @@ class Login extends Component {
     event.preventDefault();
     const email = this.emailInput.value;
     const password = this.passwordInput.value;
+
     this.props.signIn({ email, password }, () => {
       this.setState({ redirectTo: true });
     });
@@ -49,7 +50,7 @@ class Login extends Component {
   }
 }
 
-Login.proptypes = {
+Login.propTypes = {
   signIn: PropTypes.func.isRequired,
 };
 
